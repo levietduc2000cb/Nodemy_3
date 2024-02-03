@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body style="position: relative">
+    <button style="position: absolute" draggable="true">Click</button>
+  </body>
+  <script>
+    const element = document.querySelector("button");
+    element.addEventListener("dragstart", (e) => {
+      e.dataTransfer.setData("text/plain", e.target);
+      e.dataTransfer.setDragImage(e.target, 20, 20);
+      e.dataTransfer.effectAllowed = "move";
+    });
+    element.addEventListener("dragend", (e) => {
+      const x = e.clientX;
+      const y = e.clientY;
+      e.target.style.left = e.clientX + "px";
+      e.target.style.top = e.clientY + "px";
+    });
+  </script>
+</html>

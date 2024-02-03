@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>QR Code with Image</title>
+  </head>
+  <body>
+    <img id="qrCodeImage" src="" alt="QR Code with Image" />
+
+    <script>
+      // Nội dung mã QR
+      var qrCodeData = "Your QR code data";
+
+      // Đường dẫn đến ảnh muốn hiển thị ở giữa
+      var centerImageURL = "https://example.com/path_to_image.png";
+
+      // Thay đổi kích thước ảnh muốn hiển thị ở giữa (tùy chọn)
+      var centerImageSize = 100;
+
+      // Tạo URL API
+      var apiURL = "https://api.qrcodeapi.com/v1/create";
+      var requestURL =
+        apiURL +
+        "?text=" +
+        encodeURIComponent(qrCodeData) +
+        "&image=" +
+        encodeURIComponent(centerImageURL);
+
+      // Gọi API để tạo mã QR với ảnh ở giữa
+      fetch(requestURL)
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (data) {
+          // Lấy URL hình ảnh mã QR từ API response
+          var qrCodeImageUrl = data.image;
+
+          // Hiển thị hình ảnh mã QR với ảnh ở giữa
+          var qrCodeImageElement = document.getElementById("qrCodeImage");
+          qrCodeImageElement.src = qrCodeImageUrl;
+          qrCodeImageElement.width = centerImageSize; // Thay đổi kích thước ảnh (tùy chọn)
+          qrCodeImageElement.height = centerImageSize; // Thay đổi kích thước ảnh (tùy chọn)
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    </script>
+  </body>
+</html>
